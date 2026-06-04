@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Propiedades</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+
+<div class="contenedor-propiedades-crud">
+
+    <h1>🏠 Administración de Propiedades</h1>
+
+    <form>
+
+    <label for="tipo">Tipo Propiedad:</label>
+    <select id="tipo">
+        <option>Casa</option>
+        <option>Departamento</option>
+        <option>Terreno</option>
+    </select>
+
+    <br><br>
+
+    <label for="descripcion">Descripción:</label>
+    <input type="text" id="descripcion">
+
+    <br><br>
+
+    <label for="dormitorios">Dormitorios:</label>
+    <input type="number" id="dormitorios">
+
+    <br><br>
+
+    <label for="banos">Baños:</label>
+    <input type="number" id="banos">
+
+    <br><br>
+
+    <label for="precio">Precio ($):</label>
+    <input type="number" id="precio">
+
+    <br><br>
+
+    <label for="precioUF">Precio (UF):</label>
+    <input type="number" id="precioUF">
+
+    <br><br>
+
+    <label for="areaConstruida">Área Construida (m²):</label>
+    <input type="number" id="areaConstruida">
+
+    <br><br>
+
+    <label for="areaTerreno">Área Terreno (m²):</label>
+    <input type="number" id="areaTerreno">
+
+    <br><br>
+
+    <label for="fecha">Fecha Publicación:</label>
+    <input type="date" id="fecha">
+
+    <br><br>
+
+    <label for="fotos">Fotografías:</label>
+    <input type="file" id="fotos">
+
+    <br><br>
+
+    <strong>Características:</strong>
+
+    <br><br>
+
+    <label><input type="checkbox"> Bodega</label>
+    <label><input type="checkbox"> Estacionamiento</label>
+    <label><input type="checkbox"> Logia</label>
+
+    <br><br>
+
+    <label><input type="checkbox"> Cocina Amoblada</label>
+    <label><input type="checkbox"> Antejardín</label>
+    <label><input type="checkbox"> Patio Trasero</label>
+    <label><input type="checkbox"> Piscina</label>
+
+    <br><br>
+
+    <button type="submit">Guardar Propiedad</button>
+
+    </form>
+    <h2>Listado de Propiedades</h2>
+
+    <table border="1">
+
+    <tr>
+        <th>Tipo</th>
+        <th>Descripción</th>
+        <th>Dormitorios</th>
+        <th>Baños</th>
+        <th>Precio</th>
+        <th>UF</th>
+    </tr>
+
+    <tr>
+        <td>Casa</td>
+        <td>Casa Sector El Milagro, La Serena</td>
+        <td>4</td>
+        <td>3</td>
+        <td>$154.000.000</td>
+        <td>4.100 UF</td>
+    </tr>
+
+</table>
+        <br><br>
+
+        <a href="index.html" class="volver">
+        ← Volver
+</a>
+
+</div>
+
+</body>
+
+</html>

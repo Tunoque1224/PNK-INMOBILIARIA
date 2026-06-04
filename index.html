@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>PNK Inmobiliaria</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<header class="header-principal">
+    <div class="logo">
+        <img src="img/logo.png" alt="Logo PNK Inmobiliaria">
+    </div>
+<!-- Menú principal de navegación del sistema PNK Inmobiliaria -->
+    <nav class="menu">
+    <a href="index.html">Inicio</a>
+    <a href="propiedades.html">Propiedades</a>
+    <a href="gestor.html">Gestores</a>
+    <a href="propietario.html">Propietarios</a>
+    <a href="usuarios.html">Usuarios</a>
+    <a href="login.html" class="btn-login">Login</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-contenido">
+        <h1>
+    Bienvenido a<br>
+    <span>PNK Inmobiliaria</span>
+</h1>
+
+<p>
+    Casas, departamentos y terrenos en toda la Región de Coquimbo.
+</p>
+    </div>
+</section>
+
+<main>
+
+<section class="buscador">
+    <h2>🔍 Buscar Propiedad</h2>
+
+    <form>
+        <label>Comuna:</label>
+        <select>
+            <option>La Serena</option>
+            <option>Coquimbo</option>
+            <option>Ovalle</option>
+        </select>
+
+        <label>Provincia:</label>
+        <select>
+            <option>Elqui</option>
+            <option>Limarí</option>
+            <option>Choapa</option>
+        </select>
+
+        <label>Sector:</label>
+        <input type="text" placeholder="Ingrese sector">
+
+        <button type="submit">Buscar</button>
+    </form>
+</section>
+
+<section class="propiedades">
+    <h2>🏠 Propiedades Destacadas</h2>
+
+    <div class="contenedor-propiedades">
+
+        <article>
+            <span class="etiqueta">Venta</span>
+            <img src="img/casa1.jpg" alt="Casa en La Serena">
+            <p>Cód: C0125457</p>
+            <h3>Casa Sector El Milagro - La Serena</h3>
+            <div class="datos">
+            🛏️ 4 Dorm.
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+           🛁 3 Baños
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            🚗 2 Estac
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            📐 140 m²
+            </div>
+
+            <p class="precio-destacado">
+            4.100 UF - $154.000.000
+            </p>
+            
+            <a href="detalle-casa.html" class="btn-vermas">Ver Más</a>
+        </article>
+
+        <article>
+            <span class="etiqueta">Venta</span>
+            <img src="img/departamento.jpg" alt="Departamento en Coquimbo">
+            <p>Cód: D0087412</p>
+
+            <h3>Departamento en Coquimbo</h3>
+
+            <div class="datos">
+            🛏️ 2 Dorm.
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            🛁 1 Baño
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            🚗 1 Estac.
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            📐 60 m²
+            </div>
+            <p class="precio-destacado">
+            2.650 UF - $207.118.038
+            </p>
+
+            <a href="detalle-departamento.html" class="btn-vermas">Ver Más</a>
+            </article>
+
+        <article>
+           <span class="etiqueta">Venta</span>
+
+           <img src="img/terreno.jpg" alt="Terreno en Ovalle">
+
+           <p>Cód: T0056321</p>
+
+           <h3>Terreno en Ovalle</h3>
+
+           <div class="datos">
+            📐 5.090 m²
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            🌳 Terreno
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            📍 Ovalle
+           </div>
+
+           <p class="precio-destacado">
+           1.750 UF - $65.000.000
+           </p>
+
+           <a href="detalle-terreno.html" class="btn-vermas">
+           Ver Más
+          </a>
+        </article>
+
+    </div>
+</section>
+
+</main>
+
+<footer class="footer-principal">
+
+    <div class="footer-logo">
+        <img src="img/logo.png" alt="Logo PNK Inmobiliaria">
+    </div>
+
+    <div class="footer-info">
+        <p>📍 Región de Coquimbo</p>
+        <p>📧 contacto@pnkinmobiliaria.cl</p>
+        <p>📞 +56 930673693</p>
+        
+
+        <div class="redes">
+
+    <a href="#">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+
+    <a href="#">
+        <i class="fab fa-instagram"></i>
+    </a>
+
+    <a href="#">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <a href="mailto:contacto@pnkinmobiliaria.cl">
+        <i class="fas fa-envelope"></i>
+    </a>
+
+</div>
+    </div>
+
+    <div class="footer-mapa">
+        <iframe
+            src="https://www.google.com/maps?q=Coquimbo+Chile&output=embed"
+            loading="lazy">
+        </iframe>
+    </div>
+
+</footer>
+
+</body>
+</html>
