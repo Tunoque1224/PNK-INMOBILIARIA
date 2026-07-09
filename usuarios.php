@@ -29,6 +29,7 @@ $resultado = $conexion->query("SELECT * FROM usuarios");
     <meta charset="UTF-8">
     <title>CRUD Usuarios</title>
     <link rel="stylesheet" href="css/estilos.css?v=99">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -206,6 +207,21 @@ document.addEventListener("DOMContentLoaded", function () {
         text: "El usuario fue eliminado correctamente."
     });
     <?php } ?>
+    <?php if($_GET["mensaje"] == "rut_invalido"){ ?>
+Swal.fire({
+    icon: "error",
+    title: "RUT inválido",
+    text: "Ingrese un RUT con formato 12.345.678-9."
+});
+<?php } ?>
+
+<?php if($_GET["mensaje"] == "password_insegura"){ ?>
+Swal.fire({
+    icon: "error",
+    title: "Contraseña insegura",
+    text: "Debe incluir mayúscula, minúscula, número y símbolo."
+});
+<?php } ?>
 
 });
 </script>
@@ -238,7 +254,7 @@ document.getElementById("buscadorUsuarios").addEventListener("keyup", function()
 });
 </script>
 
-<script src="js/usuarios.js?v=2"></script>
+<script src="js/usuarios.js?v=3"></script>
 
 </body>
 </html>

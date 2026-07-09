@@ -58,7 +58,12 @@ $resultado = $conexion->query("SELECT * FROM propietarios");
     <br><br>
 
     <label for="propiedad">N° Propiedad:</label>
-    <input type="text" id="propiedad" name="propiedad">
+    <input type="number"
+       id="propiedad"
+       name="propiedad"
+       min="1"
+       step="1"
+       required>
 
     <br><br>
 
