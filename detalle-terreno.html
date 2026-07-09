@@ -21,14 +21,19 @@
 
 </div>
 
-<div class="galeria">
+<div class="carrusel-detalle">
 
-    <img src="img/terreno.jpg" alt="Terreno Ovalle">
-    <img src="img/terreno1.jpg" alt="">
-    <img src="img/terreno2.jpg" alt="">
-    <img src="img/terreno3.jpg" alt="">
-    <img src="img/terreno4.jpg" alt="">
+    <button class="flecha izquierda" onclick="cambiarImagen(-1)">
+        ❮
+    </button>
 
+    <img id="imagenCarrusel"
+         src="img/terreno.jpg"
+         alt="Terreno en Ovalle">
+
+    <button class="flecha derecha" onclick="cambiarImagen(1)">
+        ❯
+    </button>
 
 </div>
 
@@ -103,17 +108,56 @@
 
     <br><br>
 
-    <button class="btn-visita">
-        Solicitar Información
+    <button type="button" onclick="solicitarVisita()" class="btn-vermas">
+    📅 Solicitar Visita
     </button>
 
     <br><br>
 
     <a href="index.html" class="volver">
-        Volver al Inicio
+        ← Volver al Inicio
     </a>
 
 </section>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+function solicitarVisita() {
+    Swal.fire({
+        icon: "success",
+        title: "¡Solicitud registrada!",
+        text: "Un ejecutivo de PNK Inmobiliaria se comunicará con usted a la brevedad.",
+        confirmButtonText: "Aceptar"
+    });
+}
+</script>
+<script>
+let imagenesTerreno = [
+    "img/terreno.jpg",
+    "img/terreno1.jpg",
+    "img/terreno2.jpg",
+    "img/terreno3.jpg",
+    "img/terreno4.jpg"
+];
+
+let indiceImagen = 0;
+
+function cambiarImagen(direccion) {
+
+    indiceImagen += direccion;
+
+    if (indiceImagen < 0) {
+        indiceImagen = imagenesTerreno.length - 1;
+    }
+
+    if (indiceImagen >= imagenesTerreno.length) {
+        indiceImagen = 0;
+    }
+
+    document.getElementById("imagenCarrusel").src =
+        imagenesTerreno[indiceImagen];
+}
+</script>
 
 </body>
 </html>

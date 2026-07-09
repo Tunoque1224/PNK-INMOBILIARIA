@@ -21,16 +21,13 @@
 
 </div>
 
-<div class="galeria">
+<div class="carrusel-detalle">
 
-    <img src="img/casa1.jpg" alt="">
-    <img src="img/casa1-2.jpg" alt="">
-    <img src="img/casa1-3.jpg" alt="">
-    <img src="img/casa1-4.jpg" alt="">
-    <img src="img/casa1-5.jpg" alt="">
-    <img src="img/casa1-6.jpg" alt="">
-    <img src="img/casa1-7.jpg" alt="">
-    <img src="img/casa1-8.jpg" alt="">
+    <button class="flecha izquierda" onclick="cambiarImagen(-1)">❮</button>
+
+    <img id="imagenCarrusel" src="img/casa1.jpg" alt="Foto propiedad">
+
+    <button class="flecha derecha" onclick="cambiarImagen(1)">❯</button>
 
 </div>
 
@@ -85,6 +82,7 @@
 </section>
 
 <section class="acciones-propiedad">
+
     <h2>Compartir Propiedad</h2>
 
     <button>Compartir en Facebook</button>
@@ -93,12 +91,84 @@
 
     <br><br>
 
-    <button class="btn-visita">Solicitar Visita</button>
+    <button type="button"
+            onclick="solicitarVisita()"
+            class="btn-vermas">
+        📅 Solicitar Visita
+    </button>
 
     <br><br>
 
-    <a href="index.html" class="volver">Volver al Inicio</a>
-</section>
-</body>
+    <a href="index.html" class="volver">
+        ← Volver al Inicio
+    </a>
 
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+function solicitarVisita(){
+
+    Swal.fire({
+
+        icon: "success",
+
+        title: "¡Solicitud registrada!",
+
+        html:
+        "<b>Gracias por su interés.</b><br><br>" +
+        "Su solicitud fue registrada correctamente.<br>" +
+        "Un ejecutivo de <b>PNK Inmobiliaria</b> se comunicará con usted a la brevedad.",
+
+        confirmButtonText: "Aceptar",
+
+        confirmButtonColor: "#0d6efd",
+
+        footer: "PNK Inmobiliaria"
+
+    }).then((resultado)=>{
+
+        if(resultado.isConfirmed){
+
+            window.location.href="index.html";
+
+        }
+
+    });
+
+}
+
+</script>
+<script>
+let imagenesCasa = [
+    "img/casa1.jpg",
+    "img/casa1-2.jpg",
+    "img/casa1-3.jpg",
+    "img/casa1-4.jpg",
+    "img/casa1-5.jpg",
+    "img/casa1-6.jpg",
+    "img/casa1-7.jpg",
+    "img/casa1-8.jpg"
+];
+
+let indiceImagen = 0;
+
+function cambiarImagen(direccion) {
+    indiceImagen += direccion;
+
+    if (indiceImagen < 0) {
+        indiceImagen = imagenesCasa.length - 1;
+    }
+
+    if (indiceImagen >= imagenesCasa.length) {
+        indiceImagen = 0;
+    }
+
+    document.getElementById("imagenCarrusel").src = imagenesCasa[indiceImagen];
+}
+</script>
+
+</body>
 </html>

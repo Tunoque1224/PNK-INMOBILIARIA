@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>PNK Inmobiliaria</title>
-    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/estilos.css?v=300">
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -16,12 +17,11 @@
     </div>
 <!-- Menú principal de navegación del sistema PNK Inmobiliaria -->
     <nav class="menu">
+    <a href="catalogo.php" class="btn-login">Ver Propiedades</a>
     <a href="index.html">Inicio</a>
-    <a href="propiedades.html">Propiedades</a>
-    <a href="gestor.html">Gestores</a>
-    <a href="propietario.html">Propietarios</a>
-    <a href="usuarios.html">Usuarios</a>
-    <a href="login.html" class="btn-login">Login</a>
+    <a href="gestor.php">Gestores</a>
+    <a href="propietario.php">Propietarios</a>
+    <a href="login.php" class="btn-login">Login</a>
     </nav>
 </header>
 
@@ -41,30 +41,46 @@
 <main>
 
 <section class="buscador">
+
     <h2>🔍 Buscar Propiedad</h2>
 
-    <form>
-        <label>Comuna:</label>
-        <select>
-            <option>La Serena</option>
-            <option>Coquimbo</option>
-            <option>Ovalle</option>
+    <form action="catalogo.php" method="GET">
+
+        <label>Tipo:</label>
+
+        <select name="tipo" class="inputFiltro">
+            <option value="">Todos los tipos</option>
+            <option value="Casa">Casa</option>
+            <option value="Departamento">Departamento</option>
+            <option value="Terreno">Terreno</option>
         </select>
 
-        <label>Provincia:</label>
-        <select>
-            <option>Elqui</option>
-            <option>Limarí</option>
-            <option>Choapa</option>
-        </select>
+        <label>Comuna:</label>
+
+        <input type="text"
+               name="comuna"
+               class="inputFiltro"
+               placeholder="Ej: La Serena">
 
         <label>Sector:</label>
-        <input type="text" placeholder="Ingrese sector">
 
-        <button type="submit">Buscar</button>
+        <input type="text"
+               name="sector"
+               class="inputFiltro"
+               placeholder="Ej: El Milagro">
+
+        <button type="submit" class="btnLimpiarFiltros">
+            🔍 Buscar
+        </button>
+        <button type="button"
+        class="btnLimpiarFiltros"
+        onclick="mostrarTodas()">
+    🔄 Mostrar todas
+</button>
+
     </form>
-</section>
 
+</section>
 <section class="propiedades">
     <h2>🏠 Propiedades Destacadas</h2>
 
@@ -187,6 +203,48 @@
     </div>
 
 </footer>
+<script>
+document.querySelector(".buscador form").addEventListener("submit", function(e) {
+    e.preventDefault();
 
+    let tipo = document.querySelector('select[name="tipo"]').value.toLowerCase();
+    let comuna = document.querySelector('input[name="comuna"]').value.toLowerCase().trim();
+    let sector = document.querySelector('input[name="sector"]').value.toLowerCase().trim();
+
+    let tarjetas = document.querySelectorAll(".contenedor-propiedades article");
+    let encontrados = 0;
+
+    tarjetas.forEach(function(tarjeta) {
+        let texto = tarjeta.textContent.toLowerCase();
+
+        let coincideTipo = tipo === "" || texto.includes(tipo);
+        let coincideComuna = comuna === "" || texto.includes(comuna);
+        let coincideSector = sector === "" || texto.includes(sector);
+
+        if (coincideTipo && coincideComuna && coincideSector) {
+            tarjeta.style.display = "block";
+            encontrados++;
+        } else {
+            tarjeta.style.display = "none";
+        }
+    });
+
+    if (encontrados === 0) {
+        alert("No se encontraron propiedades.");
+    }
+});
+function mostrarTodas() {
+
+    document.querySelector('select[name="tipo"]').value = "";
+    document.querySelector('input[name="comuna"]').value = "";
+    document.querySelector('input[name="sector"]').value = "";
+
+    let tarjetas = document.querySelectorAll(".contenedor-propiedades article");
+
+    tarjetas.forEach(function(tarjeta) {
+        tarjeta.style.display = "block";
+    });
+}
+</script>
 </body>
 </html>

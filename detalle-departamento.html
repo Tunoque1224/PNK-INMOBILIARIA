@@ -21,14 +21,15 @@
 
 </div>
 
-<div class="galeria">
+<div class="carrusel-detalle">
 
-    <img src="img/departamento.jpg" alt="Edificio departamento en Coquimbo">
-    <img src="img/departamento1.jpg" alt="Piscina del condominio">
-    <img src="img/departamento2.jpg" alt="Dormitorio del departamento">
-    <img src="img/departamento3.jpg" alt="Baño del departamento">
-    <img src="img/departamento4.jpg" alt="Cocina del departamento">
-    <img src="img/departamento5.jpg" alt="Vista exterior del edificio">
+    <button class="flecha izquierda" onclick="cambiarImagen(-1)">❮</button>
+
+    <img id="imagenCarrusel"
+         src="img/departamento.jpg"
+         alt="Departamento en Coquimbo">
+
+    <button class="flecha derecha" onclick="cambiarImagen(1)">❯</button>
 
 </div>
 
@@ -99,17 +100,57 @@
 
     <br><br>
 
-    <button class="btn-visita">
-        Solicitar Visita
+    <button type="button" onclick="solicitarVisita()" class="btn-vermas">
+    📅 Solicitar Visita
     </button>
 
     <br><br>
 
     <a href="index.html" class="volver">
-        Volver al Inicio
+        ← Volver al Inicio
     </a>
 
 </section>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+function solicitarVisita() {
+    Swal.fire({
+        icon: "success",
+        title: "¡Solicitud registrada!",
+        text: "Un ejecutivo de PNK Inmobiliaria se comunicará con usted a la brevedad.",
+        confirmButtonText: "Aceptar"
+    });
+}
+</script>
+<script>
+let imagenesDepartamento = [
+    "img/departamento.jpg",
+    "img/departamento1.jpg",
+    "img/departamento2.jpg",
+    "img/departamento3.jpg",
+    "img/departamento4.jpg",
+    "img/departamento5.jpg"
+];
+
+let indiceImagen = 0;
+
+function cambiarImagen(direccion) {
+
+    indiceImagen += direccion;
+
+    if (indiceImagen < 0) {
+        indiceImagen = imagenesDepartamento.length - 1;
+    }
+
+    if (indiceImagen >= imagenesDepartamento.length) {
+        indiceImagen = 0;
+    }
+
+    document.getElementById("imagenCarrusel").src =
+        imagenesDepartamento[indiceImagen];
+}
+</script>
 
 </body>
 </html>
