@@ -1,32 +1,41 @@
-
-
 const formUsuario = document.getElementById("formUsuario");
-
 function validarRut(rutCompleto) {
-    rutCompleto = rutCompleto.replace(/\./g, "").replace("-", "");
+    let rutLimpio = rutCompleto
+        .replace(/\./g, "")
+        .replace("-", "")
+        .toUpperCase();
 
-    if (rutCompleto.length < 8) {
+    if (rutLimpio.length < 2) {
         return false;
     }
 
-    let cuerpo = rutCompleto.slice(0, -1);
-    let dv = rutCompleto.slice(-1).toUpperCase();
+    let cuerpo = rutLimpio.slice(0, -1);
+    let dvIngresado = rutLimpio.slice(-1);
 
-    let suma = 0;
-    let multiplo = 2;
-
-    for (let i = cuerpo.length - 1; i >= 0; i--) {
-        suma += parseInt(cuerpo.charAt(i)) * multiplo;
-        multiplo = multiplo < 7 ? multiplo + 1 : 2;
+    if (!/^\d+$/.test(cuerpo)) {
+        return false;
     }
 
-    let esperado = 11 - (suma % 11);
+    let suma = 0;
+    let multiplicador = 2;
 
-    if (esperado == 11) esperado = "0";
-    else if (esperado == 10) esperado = "K";
-    else esperado = esperado.toString();
+    for (let i = cuerpo.length - 1; i >= 0; i--) {
+        suma += parseInt(cuerpo.charAt(i)) * multiplicador;
+        multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+    }
 
-    return esperado === dv;
+    let resultado = 11 - (suma % 11);
+    let dvCalculado;
+
+    if (resultado === 11) {
+        dvCalculado = "0";
+    } else if (resultado === 10) {
+        dvCalculado = "K";
+    } else {
+        dvCalculado = resultado.toString();
+    }
+
+    return dvIngresado === dvCalculado;
 }
 
 formUsuario.addEventListener("submit", function(e) {
@@ -34,8 +43,12 @@ formUsuario.addEventListener("submit", function(e) {
     let rut = document.getElementById("rut").value.trim();
     let nombre = document.getElementById("nombre").value.trim();
     let correo = document.getElementById("correo").value.trim();
-    let password = document.getElementById("password").value;
+    let password = document.getElementById("password").value.trim();
     let rol = document.getElementById("rol").value;
+
+    let formatoRut = /^[0-9]{1,2}\.[0-9]{3}\.[0-9]{3}-[0-9kK]$/;
+    let soloLetras = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+    let formatoPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-]).{8,}$/;
 
     if (rut === "" || nombre === "" || correo === "" || password === "" || rol === "") {
         e.preventDefault();
@@ -43,12 +56,11 @@ formUsuario.addEventListener("submit", function(e) {
         Swal.fire({
             icon: "warning",
             title: "Campos incompletos",
-            text: "Debe completar todos los campos obligatorios."
+            text: "Debe completar todos los campos."
         });
+
         return;
     }
-
-    const formatoRut = /^[0-9]{1,2}\.[0-9]{3}\.[0-9]{3}-[0-9kK]$/;
 
     if (!formatoRut.test(rut)) {
         e.preventDefault();
@@ -56,38 +68,36 @@ formUsuario.addEventListener("submit", function(e) {
         Swal.fire({
             icon: "error",
             title: "RUT inválido",
-            text: "Debe ingresar el RUT con formato 12.345.678-9."
+            text: "Use el formato 12.345.678-9."
         });
+
         return;
     }
-
     if (!validarRut(rut)) {
-        e.preventDefault();
+    e.preventDefault();
 
-        Swal.fire({
-            icon: "error",
-            title: "RUT incorrecto",
-            text: "El dígito verificador del RUT no es válido."
-        });
-        return;
-    }
+    Swal.fire({
+        icon: "error",
+        title: "RUT inválido",
+        text: "El dígito verificador no corresponde."
+    });
 
-    const formatoNombre = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+    return;
+}
 
-    if (!formatoNombre.test(nombre)) {
+    if (!soloLetras.test(nombre)) {
         e.preventDefault();
 
         Swal.fire({
             icon: "error",
             title: "Nombre inválido",
-            text: "El nombre solo puede contener letras."
+            text: "El nombre solo debe contener letras y espacios."
         });
+
         return;
     }
 
-    const formatoCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!formatoCorreo.test(correo)) {
+    if (!correo.includes("@") || !correo.includes(".")) {
         e.preventDefault();
 
         Swal.fire({
@@ -95,10 +105,9 @@ formUsuario.addEventListener("submit", function(e) {
             title: "Correo inválido",
             text: "Ingrese un correo electrónico válido."
         });
+
         return;
     }
-
-    const formatoPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-]).{8,}$/;
 
     if (!formatoPassword.test(password)) {
         e.preventDefault();
@@ -106,9 +115,9 @@ formUsuario.addEventListener("submit", function(e) {
         Swal.fire({
             icon: "error",
             title: "Contraseña insegura",
-            text: "Debe tener mínimo 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial."
+            text: "Debe incluir mayúscula, minúscula, número y símbolo."
         });
+
         return;
     }
-
 });

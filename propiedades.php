@@ -19,12 +19,18 @@ $propietariosActivos = $conexion->query("
 if ($rol == "Administrador" || $rol == "Gestor") {
 
     $resultado = $conexion->query("
-        SELECT propiedades.*, fotos_propiedades.ruta AS imagen_principal
-        FROM propiedades
-        LEFT JOIN fotos_propiedades
+    SELECT 
+        propiedades.*,
+        fotos_propiedades.ruta AS imagen_principal,
+        usuarios.nombre AS nombre_usuario,
+        usuarios.correo AS correo_usuario
+    FROM propiedades
+    LEFT JOIN fotos_propiedades
         ON propiedades.id = fotos_propiedades.id_propiedad
         AND fotos_propiedades.principal = 1
-    ");
+    LEFT JOIN usuarios
+        ON propiedades.id_usuario = usuarios.id
+");
 
 } else {
 
@@ -147,13 +153,13 @@ if ($rol == "Administrador" || $rol == "Gestor") {
 
         <div id="campoDormitorios">
         <label>Dormitorios:</label>
-        <input type="number" id="dormitorios" name="dormitorios">
+        <input type="number" id="dormitorios" name="dormitorios" min="0">
         <br><br>
         </div>
 
         <div id="campoBanos">
         <label>Baños:</label>
-        <input type="number" id="banos" name="banos">
+        <input type="number" id="banos" name="banos" min="0">
         <br><br>
         </div>
         
@@ -170,7 +176,7 @@ if ($rol == "Administrador" || $rol == "Gestor") {
 
         <div id="campoAreaConstruida">
         <label>Área Construida (m²):</label>
-        <input type="number" id="areaConstruida" name="areaConstruida">
+        <input type="number" id="areaConstruida" name="areaConstruida" min="0">
         <br><br>
         </div>
 
@@ -178,12 +184,15 @@ if ($rol == "Administrador" || $rol == "Gestor") {
 
         <div id="campoAreaTerreno">
         <label>Área Terreno (m²):</label>
-        <input type="number" id="areaTerreno" name="areaTerreno">
+        <input type="number" id="areaTerreno" name="areaTerreno" min="0">
         <br><br>
         </div>
 
         <label>Fecha Publicación:</label>
-        <input type="date" id="fecha" name="fecha">
+        <input type="date"
+       id="fecha"
+       name="fecha"
+       max="<?php echo date('Y-m-d'); ?>">
 
         <br><br>
 
@@ -252,7 +261,12 @@ if ($rol == "Administrador" || $rol == "Gestor") {
         <th>Tipo</th>
         <th>Foto</th>
         <th>Descripción</th>
-        <th>Comuna</th>
+
+<?php if ($rol == "Administrador" || $rol == "Gestor") { ?>
+    <th>Propietario</th>
+<?php } ?>
+
+<th>Comuna</th>
         <th>Sector</th>
         <th>Dormitorios</th>
         <th>Baños</th>
@@ -291,6 +305,28 @@ if ($rol == "Administrador" || $rol == "Gestor") {
         </td>
 
         <td><?php echo $propiedad["descripcion"]; ?></td>
+        <?php if ($rol == "Administrador" || $rol == "Gestor") { ?>
+
+    <td>
+        <?php if (!empty($propiedad["nombre_usuario"])) { ?>
+
+            <strong>
+                <?php echo $propiedad["nombre_usuario"]; ?>
+            </strong>
+
+            <br>
+
+            <?php echo $propiedad["correo_usuario"]; ?>
+
+        <?php } else { ?>
+
+            Sin propietario asignado
+
+        <?php } ?>
+    </td>
+
+<?php } ?>
+</td>
 
         <td><?php echo $propiedad["comuna"]; ?></td>
 
@@ -397,9 +433,6 @@ if ($rol == "Administrador" || $rol == "Gestor") {
     <a href="dashboard.php" class="volver">🏠 Volver al Dashboard</a>
 
 </div>
-
-<script src="js/propiedades.js"></script>
-
 <script>
 function mostrarFormularioPropiedad() {
     let formulario = document.getElementById("formPropiedad");
@@ -423,8 +456,20 @@ function aplicarFiltros() {
 
         if (celdas.length > 0) {
             let tipoTabla = celdas[0].textContent.toLowerCase();
-            let comunaTabla = celdas[3].textContent.toLowerCase();
-            let sectorTabla = celdas[4].textContent.toLowerCase();
+            let comunaTabla;
+let sectorTabla;
+
+if ("<?php echo $rol; ?>" === "Administrador" ||
+    "<?php echo $rol; ?>" === "Gestor") {
+
+    comunaTabla = celdas[4].textContent.toLowerCase();
+    sectorTabla = celdas[5].textContent.toLowerCase();
+
+} else {
+
+    comunaTabla = celdas[3].textContent.toLowerCase();
+    sectorTabla = celdas[4].textContent.toLowerCase();
+}
 
             let coincideTipo = tipo === "" || tipoTabla.includes(tipo);
             let coincideComuna = comuna === "" || comunaTabla.includes(comuna);

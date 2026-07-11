@@ -94,17 +94,37 @@ if (tipo === "Terreno") {
     }
         let soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/;
 
-        if (!soloLetras.test(comuna) || !soloLetras.test(sector)) {
+        if (
+    !soloLetras.test(descripcion) ||
+    !soloLetras.test(comuna) ||
+    !soloLetras.test(sector)
+) {
         e.preventDefault();
 
         Swal.fire({
-        icon: "error",
-        title: "Datos inválidos",
-        text: "Comuna y sector solo permiten letras."
-        });
+    icon: "error",
+    title: "Datos inválidos",
+    text: "Descripción, comuna y sector solo permiten letras."
+});
 
         return;
     }
+         let fechaSeleccionada = new Date(fecha + "T00:00:00");
+         let fechaActual = new Date();
+
+         fechaActual.setHours(0, 0, 0, 0);
+
+         if (fechaSeleccionada > fechaActual) {
+         e.preventDefault();
+
+         Swal.fire({
+          icon: "error",
+          title: "Fecha inválida",
+          text: "La fecha de publicación no puede ser futura."
+    });
+
+    return;
+}
 
     if (
         isNaN(dormitorios) ||

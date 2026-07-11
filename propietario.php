@@ -9,7 +9,9 @@ $resultado = $conexion->query("SELECT * FROM propietarios");
 <head>
     <meta charset="UTF-8">
     <title>Registro Propietario</title>
-    <link rel="stylesheet" href="css/estilos.css">
+
+    <link rel="stylesheet" href="css/estilos.css?v=2">
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -29,7 +31,10 @@ $resultado = $conexion->query("SELECT * FROM propietarios");
     <br><br>
 
     <label for="fecha">Fecha de Nacimiento:</label>
-    <input type="date" id="fecha" name="fecha">
+    <input type="date"
+       id="fecha"
+       name="fecha"
+       max="<?php echo date('Y-m-d'); ?>">
 
     <br><br>
 
@@ -68,12 +73,19 @@ $resultado = $conexion->query("SELECT * FROM propietarios");
     <br><br>
 
     <button type="submit">Registrar Propietario</button>
-    <a href="dashboard.php" class="volver">🏠 Dashboard</a>
-    <br><br>
 
-    <a href="index.html" class="volver">
+<a href="dashboard.php" class="volver">
+    🏠 Dashboard
+</a>
+
+</form>
+
+<br><br>
+
+<a href="index.html" class="volver">
     ← Volver
-    </a>
+</a>
+
 </div>
        <?php if(isset($_GET["mensaje"])){ ?>
 <script>
@@ -106,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 <?php } ?>
-       <script src="./js/propietario.js"></script>
+       <script src="js/propietario.js?v=3"></script>
 
 </body>
 </html>

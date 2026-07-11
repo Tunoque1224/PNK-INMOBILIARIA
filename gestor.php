@@ -31,7 +31,10 @@ $resultado = $conexion->query("SELECT * FROM gestores");
         <br><br>
 
         <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-        <input type="date" id="fechaNacimiento" name="fechaNacimiento">
+        <input type="date"
+       id="fechaNacimiento"
+       name="fechaNacimiento"
+       max="<?php echo date('Y-m-d'); ?>">
 
         <br><br>
 
@@ -66,10 +69,13 @@ $resultado = $conexion->query("SELECT * FROM gestores");
         <br><br>
 
         <button type="submit">Registrar Gestor</button>
-    <br><br>
 
-    <a href="dashboard.php" class="volver">🏠 Dashboard</a>
-    <a href="index.html" class="volver">← Volver al Inicio</a>
+</form>
+
+<br><br>
+
+<a href="dashboard.php" class="volver">🏠 Dashboard</a>
+<a href="index.html" class="volver">← Volver al Inicio</a>
 
 </div>
 
@@ -104,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 <?php } ?>
-       <script src="./js/gestor.js"></script>
+       <script src="js/gestor.js?v=2"></script>
 
 </body>
 </html>

@@ -1,4 +1,42 @@
 const formGestor = document.getElementById("formGestor");
+function validarRut(rutCompleto) {
+    let rutLimpio = rutCompleto
+        .replace(/\./g, "")
+        .replace("-", "")
+        .toUpperCase();
+
+    if (rutLimpio.length < 2) {
+        return false;
+    }
+
+    let cuerpo = rutLimpio.slice(0, -1);
+    let dvIngresado = rutLimpio.slice(-1);
+
+    if (!/^\d+$/.test(cuerpo)) {
+        return false;
+    }
+
+    let suma = 0;
+    let multiplicador = 2;
+
+    for (let i = cuerpo.length - 1; i >= 0; i--) {
+        suma += parseInt(cuerpo.charAt(i)) * multiplicador;
+        multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+    }
+
+    let resultado = 11 - (suma % 11);
+    let dvCalculado;
+
+    if (resultado === 11) {
+        dvCalculado = "0";
+    } else if (resultado === 10) {
+        dvCalculado = "K";
+    } else {
+        dvCalculado = resultado.toString();
+    }
+
+    return dvIngresado === dvCalculado;
+}
 
 formGestor.addEventListener("submit", function (e) {
 
@@ -43,6 +81,46 @@ formGestor.addEventListener("submit", function (e) {
         });
         return;
     }
+    if (!validarRut(rut)) {
+    e.preventDefault();
+
+    Swal.fire({
+        icon: "error",
+        title: "RUT inválido",
+        text: "El dígito verificador no corresponde."
+    });
+
+    return;
+}
+    const soloLetras = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/;
+
+if (!soloLetras.test(nombre)) {
+    e.preventDefault();
+
+    Swal.fire({
+        icon: "error",
+        title: "Nombre inválido",
+        text: "El nombre solo debe contener letras y espacios."
+    });
+
+    return;
+}
+    let fechaSeleccionada = new Date(fechaNacimiento + "T00:00:00");
+let fechaActual = new Date();
+
+fechaActual.setHours(0, 0, 0, 0);
+
+if (fechaSeleccionada > fechaActual) {
+    e.preventDefault();
+
+    Swal.fire({
+        icon: "error",
+        title: "Fecha inválida",
+        text: "La fecha de nacimiento no puede ser futura."
+    });
+
+    return;
+}
 
     const formatoCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

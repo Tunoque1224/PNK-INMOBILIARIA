@@ -254,7 +254,7 @@ document.getElementById("buscadorUsuarios").addEventListener("keyup", function()
 });
 </script>
 
-<script src="js/usuarios.js?v=3"></script>
+<script src="js/usuarios.js?v=4"></script>
 
 </body>
 </html>
