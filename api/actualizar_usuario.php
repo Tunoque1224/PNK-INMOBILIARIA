@@ -1,5 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:5175");
+header("Access-Control-Allow-Origin: http://98.90.238.74");
 header("Content-Type: application/json; charset=UTF-8");
 
 include("../conexion.php");
