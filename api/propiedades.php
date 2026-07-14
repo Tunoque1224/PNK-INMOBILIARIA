@@ -2,7 +2,7 @@
 
 session_start();
 
-header("Access-Control-Allow-Origin: http://98.90.238.74");
+header("Access-Control-Allow-Origin: http://pnk-react-cesar-20260714.s3-website-us-east-1.amazonaws.com");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
